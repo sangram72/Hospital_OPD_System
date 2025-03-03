@@ -96,7 +96,7 @@ function Dash() {
   const handleSaveVitals = async () => {
     if (!patient) return;
   
-    setLoading(true);
+    // setLoading(true);
     try {
       const patientRef = doc(db, 'patients', patient.id);
       await updateDoc(patientRef, {
@@ -104,7 +104,7 @@ function Dash() {
       });
   
       setTimeout(() => { 
-        setLoading(false);
+        // setLoading(false);
         toast.success("Vitals saved successfully!"  ); 
       }, 500);
       
