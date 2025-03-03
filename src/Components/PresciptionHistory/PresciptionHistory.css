@@ -82,3 +82,31 @@
     font-size: 18px;
     color: gray;
 }
+
+.sort-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.sort-select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sort-container {
+        justify-content: center;
+    }
+    
+    .sort-select {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
