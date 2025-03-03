@@ -195,7 +195,10 @@ Setissave(true)
         <button className="save-btn" onClick={savePrescription}>
           Save Prescription
         </button>
- <button disabled={!Issave} className="generate-btn" onClick={generatePDF}>
+<button className="generate-btn" onClick={Issave ? generatePDF : () => toast.error("Save the prescription first!")}>
+  Generate PDF
+</button>
+
 
           Generate PDF
         </button>
