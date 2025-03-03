@@ -195,7 +195,8 @@ Setissave(true)
         <button className="save-btn" onClick={savePrescription}>
           Save Prescription
         </button>
-        <button disable={Issave} className="generate-btn" onClick={generatePDF}>
+ <button disabled={!Issave} className="generate-btn" onClick={generatePDF}>
+
           Generate PDF
         </button>
       </div>
