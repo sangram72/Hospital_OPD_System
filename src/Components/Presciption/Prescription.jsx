@@ -113,7 +113,7 @@ function Prescription() {
 
     pdf.addImage(logo, "PNG", 80, 5, 50, 20);
     pdf.setFontSize(14).setTextColor("#0047AB").text("Sangram's Hospital", 105, 30, { align: "center" });
-    pdf.setFontSize(10).setTextColor("black").text("123 Street Name, City, Country", 105, 37, { align: "center" });
+    pdf.setFontSize(10).setTextColor("black").text("Kolkata,India", 105, 37, { align: "center" });
     pdf.text("Email: sangramnandi99@gmail.com | Phone: +919875369598", 105, 42, { align: "center" });
 
     pdf.setFontSize(12).setTextColor("#FF5733").text(`Patient Name: ${patientData.name}`, 10, 55);
