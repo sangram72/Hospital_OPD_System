@@ -67,7 +67,7 @@ function PrescriptionHistory() {
     pdf.setFontSize(14).setTextColor("#0047AB").setFont("helvetica", "bold")
       .text("Sangram's Hospital", 105, 30, { align: "center" });
     pdf.setFontSize(10).setTextColor("black")
-      .text("15 No Nalta Sarada Sarani", 105, 37, { align: "center" })
+      .text("Kolkata,India", 105, 37, { align: "center" })
       .text("Email: sangramnandi99@gmail.com | Phone: +919875369598", 105, 42, { align: "center" });
 
     // Patient Info
