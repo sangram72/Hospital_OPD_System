@@ -200,8 +200,7 @@ Setissave(true)
 </button>
 
 
-          Generate PDF
-        </button>
+      
       </div>
     </div>
     </>
