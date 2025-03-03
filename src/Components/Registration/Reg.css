@@ -1,0 +1,138 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Input Fields */
+.input-field {
+  width: calc(100% - 24px);
+  padding: 14px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: block;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+.input-field:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Gender Selection */
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.radio-group label {
+  font-weight: bold;
+  color: #333;
+  font-size: 16px;
+}
+
+.radio-group input {
+  margin-right: 5px;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+  box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.2);
+  margin-top: 10px;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #0056b3, #003f80);
+  box-shadow: 0px 6px 15px rgba(0, 123, 255, 0.3);
+  transform: scale(1.02);
+}
+
+/* Copy ID Section */
+.copy-id-container {
+  background: #f1f1f1;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.copy-id-container p {
+  margin: 5px 0;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Login Button */
+.login-button {
+  background: linear-gradient(90deg, #28a745, #218838);
+}
+
+.login-button:hover {
+  background: linear-gradient(90deg, #218838, #19692c);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    max-width: 350px;
+    padding: 25px;
+  }
+
+  .input-field,
+  button {
+    font-size: 16px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+}

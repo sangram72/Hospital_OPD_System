@@ -1,0 +1,194 @@
+/* ✅ General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    margin-top: 10%;
+}
+
+/* ✅ Ensure Content Starts After Navbar */
+.dash-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Patient Card */
+.patient-card {
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+/* ✅ Title */
+.title {
+    margin-top: 0;
+}
+
+/* ✅ Buttons */
+.button-group {
+    display: flex;
+    justify-content: space-between; /* Ensures even spacing between buttons */
+    align-items: center; /* Aligns buttons vertically */
+    gap: 15px; /* Adds spacing between buttons */
+    margin-top: 20px;
+}
+
+.save-btn, .back-btn {
+    flex: 1; /* Makes both buttons take equal space */
+    max-width: 48%; /* Prevents them from taking full width */
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+.back-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.back-btn:hover {
+    background-color: #b02a37;
+}
+
+/* ✅ Edit Button */
+.edit-btn {
+    margin: 0 auto;
+    display: block;
+    margin-top: 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 30vw;
+    background-color: #ffffff;
+}
+
+/* ✅ Vitals Section */
+.vitals-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* ✅ Desktop & Tablet: Display vitals form in a row */
+.vitals-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.vitals-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    width: calc(20% - 10px);
+    text-align: center;
+}
+
+.vitals-form input {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* ✅ Save Vitals Button */
+.save-vitals-btn {
+    margin: 20px auto;
+    display: block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 30vw;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/* ✅ Mobile View */
+@media (max-width: 768px) {
+    .dash-container {
+        margin-top: 100%;
+    }
+
+    .vitals-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .vitals-form label {
+        width: 100%;
+        text-align: center;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .save-btn, .back-btn {
+        width: 100%;
+        max-width: none;
+    }
+
+    .back-btn {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 385px) {
+    .dash-container {
+        margin-top: 150%;
+    }
+}
+
+/* ✅ Loading Overlay */
+.loading-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vw;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-image {
+    width: 100px;
+    height: 100px;
+}
