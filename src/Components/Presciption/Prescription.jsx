@@ -12,7 +12,8 @@ import Navbar from "../Navbar/Navbar";
 function Prescription() {
 
   const [patientId, setPatientId] = useState(null);
-  const [patientData, setPatientData] = useState({ name: "", age: "" });
+  const [Issave,Setissave]=useState(false)
+    const [patientData, setPatientData] = useState({ name: "", age: "" });
   const [formData, setFormData] = useState({
     findings: "",
     medicines: "",
@@ -97,7 +98,7 @@ function Prescription() {
         prescriptions: arrayUnion(newPrescription),
         vitals: null,
       });
-
+Setissave(true)
       toast.success("Prescription saved successfully!");
 
     } catch (error) {
@@ -194,7 +195,7 @@ function Prescription() {
         <button className="save-btn" onClick={savePrescription}>
           Save Prescription
         </button>
-        <button className="generate-btn" onClick={generatePDF}>
+        <button disable={Issave} className="generate-btn" onClick={generatePDF}>
           Generate PDF
         </button>
       </div>
