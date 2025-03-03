@@ -22,7 +22,7 @@ function Navbar({ patientId }) {
 
   return (
     <nav className="navbar">
-      <div className="logo">🏥 MyHospital</div>
+      <div className="logo">🏥 Sangram's Hospital</div>
 
       <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
         ☰
