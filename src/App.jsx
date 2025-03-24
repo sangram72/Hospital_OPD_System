@@ -26,7 +26,24 @@ function App() {
   useEffect(() => {
     let watchId;
 
-    const startTracking = () => {
+    const checkAccess = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const screenWidth = window.innerWidth;
+
+      // ✅ OS Restriction (Only Windows & macOS)
+      if (!(userAgent.includes("windows") || userAgent.includes("macintosh"))) {
+        setIsAllowed(false);
+        setErrorMessage("This application is only available on Windows and macOS.");
+        return;
+      }
+
+      // ✅ Screen Size Restriction (Min: 1024px)
+      if (screenWidth < 1024) {
+        setIsAllowed(false);
+        setErrorMessage("This application requires a screen width of at least 1024px.");
+        return;
+      }
+
       if (!navigator.geolocation) {
         setIsAllowed(false);
         setErrorMessage("Geolocation is not supported in this browser.");
@@ -39,7 +56,7 @@ function App() {
 
           // ✅ Allowed Location (Modify these coordinates)
           const allowedLat = 22.9266651;
-          const allowedLon = 80;
+          const allowedLon = 88.4409650;
           const radius = 0.3; // 0.3 km = 300 meters
 
           const distance = getDistance(latitude, longitude, allowedLat, allowedLon);
@@ -66,10 +83,24 @@ function App() {
       );
     };
 
-    startTracking();
+    checkAccess();
+
+    // ✅ Listen for Screen Resize (Update restriction if size changes)
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsAllowed(false);
+        setErrorMessage("Screen size too small. Resize your window to at least 1024px.");
+      } else {
+        setIsAllowed(true);
+        setErrorMessage("");
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
       if (watchId) navigator.geolocation.clearWatch(watchId);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
