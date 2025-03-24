@@ -38,9 +38,9 @@ function App() {
       }
 
       // ✅ Screen Size Restriction (Min: 1024px)
-      if (screenWidth < 1024) {
+      if (screenWidth < 1440) {
         setIsAllowed(false);
-        setErrorMessage("This application requires a screen width of at least 1024px.");
+        setErrorMessage("This application requires a screen width of at least 1440px.");
         return;
       }
 
@@ -87,7 +87,7 @@ function App() {
 
     // ✅ Listen for Screen Resize (Update restriction if size changes)
     const handleResize = () => {
-      if (window.innerWidth < 1024) {
+      if (window.innerWidth < 1440) {
         setIsAllowed(false);
         setErrorMessage("Screen size too small. Resize your window to at least 1024px.");
       } else {
