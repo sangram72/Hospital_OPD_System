@@ -39,7 +39,7 @@ function App() {
 
           // ✅ Allowed Location (Modify these coordinates)
           const allowedLat = 22.9266651;
-          const allowedLon = 88.4409650;
+          const allowedLon = 80;
           const radius = 0.3; // 0.3 km = 300 meters
 
           const distance = getDistance(latitude, longitude, allowedLat, allowedLon);
