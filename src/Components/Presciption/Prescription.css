@@ -3,7 +3,7 @@
     margin: 80px auto 20px;
     background: white;
     padding: 30px;
-
+margin-top: 38%;
     border-radius: 12px;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
     text-align: center;
@@ -45,7 +45,19 @@
     font-size: 14px;
   }
   
-  .generate-btn .save-btn {
+  .generate-btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    width: 48%;
+    font-size: 16px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .save-btn {
     margin-top: 20px;
     padding: 12px 20px;
     width: 100%;
