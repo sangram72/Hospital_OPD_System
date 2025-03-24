@@ -23,86 +23,86 @@ function App() {
   const [isAllowed, setIsAllowed] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    let watchId;
+  // useEffect(() => {
+  //   let watchId;
 
-    const checkAccess = () => {
-      const userAgent = navigator.userAgent.toLowerCase();
-      const screenWidth = window.innerWidth;
+  //   const checkAccess = () => {
+  //     const userAgent = navigator.userAgent.toLowerCase();
+  //     const screenWidth = window.innerWidth;
 
-      // ✅ OS Restriction (Only Windows & macOS)
-      if (!(userAgent.includes("windows") || userAgent.includes("macintosh"))) {
-        setIsAllowed(false);
-        setErrorMessage("This application is only available on Windows and macOS.");
-        return;
-      }
+  //     // ✅ OS Restriction (Only Windows & macOS)
+  //     if (!(userAgent.includes("windows") || userAgent.includes("macintosh"))) {
+  //       setIsAllowed(false);
+  //       setErrorMessage("This application is only available on Windows and macOS.");
+  //       return;
+  //     }
 
-      // ✅ Screen Size Restriction (Min: 1024px)
-      if (screenWidth < 1440) {
-        setIsAllowed(false);
-        setErrorMessage("This application requires a screen width of at least 1440px.");
-        return;
-      }
+  //     // ✅ Screen Size Restriction (Min: 1024px)
+  //     if (screenWidth < 1440) {
+  //       setIsAllowed(false);
+  //       setErrorMessage("This application requires a screen width of at least 1440px.");
+  //       return;
+  //     }
 
-      if (!navigator.geolocation) {
-        setIsAllowed(false);
-        setErrorMessage("Geolocation is not supported in this browser.");
-        return;
-      }
+  //     if (!navigator.geolocation) {
+  //       setIsAllowed(false);
+  //       setErrorMessage("Geolocation is not supported in this browser.");
+  //       return;
+  //     }
 
-      watchId = navigator.geolocation.watchPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
+  //     watchId = navigator.geolocation.watchPosition(
+  //       (position) => {
+  //         const { latitude, longitude } = position.coords;
 
-          // ✅ Allowed Location (Modify these coordinates)
-          const allowedLat = 22.647298;
-          const allowedLon = 88.420461;
-          const radius = 0.3; // 0.3 km = 300 meters
+  //         // ✅ Allowed Location (Modify these coordinates)
+  //         const allowedLat = 22.9266651;
+  //         const allowedLon = 88.4409650;
+  //         const radius = 0.3; // 0.3 km = 300 meters
 
-          const distance = getDistance(latitude, longitude, allowedLat, allowedLon);
-          console.log(`User distance from allowed location: ${distance.toFixed(3)} km`);
+  //         const distance = getDistance(latitude, longitude, allowedLat, allowedLon);
+  //         console.log(`User distance from allowed location: ${distance.toFixed(3)} km`);
 
-          if (distance > radius) {
-            setIsAllowed(false);
-            setErrorMessage("Access is restricted to a specific location.");
-          } else {
-            setIsAllowed(true);
-            setErrorMessage(""); // Clear error message
-          }
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-          setIsAllowed(false);
-          setErrorMessage("Location access error.");
-        },
-        {
-          enableHighAccuracy: true, // More precise tracking
-          maximumAge: 10000, // Cache location for 10 sec
-          timeout: 5000, // Timeout after 5 sec if no response
-        }
-      );
-    };
+  //         if (distance > radius) {
+  //           setIsAllowed(false);
+  //           setErrorMessage("Access is restricted to a specific location.");
+  //         } else {
+  //           setIsAllowed(true);
+  //           setErrorMessage(""); // Clear error message
+  //         }
+  //       },
+  //       (error) => {
+  //         console.error("Geolocation error:", error);
+  //         setIsAllowed(false);
+  //         setErrorMessage("Location access error.");
+  //       },
+  //       {
+  //         enableHighAccuracy: true, // More precise tracking
+  //         maximumAge: 10000, // Cache location for 10 sec
+  //         timeout: 5000, // Timeout after 5 sec if no response
+  //       }
+  //     );
+  //   };
 
-    checkAccess();
+  //   checkAccess();
 
-    // ✅ Listen for Screen Resize (Update restriction if size changes)
-    const handleResize = () => {
-      if (window.innerWidth < 1440) {
-        setIsAllowed(false);
-        setErrorMessage("Screen size too small. Resize your window to at least 1440px.");
-      } else {
-        setIsAllowed(true);
-        setErrorMessage("");
-      }
-    };
+  //   // ✅ Listen for Screen Resize (Update restriction if size changes)
+  //   const handleResize = () => {
+  //     if (window.innerWidth < 1440) {
+  //       setIsAllowed(false);
+  //       setErrorMessage("Screen size too small. Resize your window to at least 1440px.");
+  //     } else {
+  //       setIsAllowed(true);
+  //       setErrorMessage("");
+  //     }
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => {
-      if (watchId) navigator.geolocation.clearWatch(watchId);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   return () => {
+  //     if (watchId) navigator.geolocation.clearWatch(watchId);
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   // ✅ Function to Calculate Distance between Two Coordinates
   function getDistance(lat1, lon1, lat2, lon2) {
