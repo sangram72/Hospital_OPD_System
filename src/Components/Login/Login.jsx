@@ -1,71 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { db } from '../../Firebase'; 
-import { doc, getDoc } from 'firebase/firestore';
+import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "../../AuthContext"; 
 import './Login.css';
 import loadingGif from '../../assets/loading.gif'; 
 
 function Login() {
   const navigate = useNavigate();
-  const [search, setSearch] = useState('');
+  const { login } = useAuth(); 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const prefix = 'PAT-';
 
-  useEffect(() => {
-    // Redirect to dashboard if already logged in
-    if (localStorage.getItem('token')) {
-      navigate('/Dash', { replace: true });
-    }
-
-    // Disable back button
-    window.history.pushState(null, null, window.location.pathname);
-    window.addEventListener('popstate', () => {
-      window.history.pushState(null, null, window.location.pathname);
-    });
-
-    return () => {
-      window.removeEventListener('popstate', () => {});
-    };
-  }, [navigate]);
-
-  async function fetchPatientDetails() {
-    const patientId = prefix + search.trim();
-    
-    if (!search.trim()) {
-      toast.error('Please enter a valid Patient ID');
+  const handleLogin = async () => {
+    if (!email || !password) {
+      toast.error("Please enter both email and password!");
       return;
     }
 
     setLoading(true);
 
     try {
-      const patientRef = doc(db, 'patients', patientId);
-      const patientSnap = await getDoc(patientRef);
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-      if (patientSnap.exists()) {
-        const patientData = { id: patientId, ...patientSnap.data() };
+      const token = await user.getIdToken(); 
 
-        // Generate a simple token (e.g., patient ID + timestamp)
-        const token = `${patientId}-${Date.now()}`;
+      login(token, { email: user.email, uid: user.uid });
 
-        // Store the token in localStorage
-        localStorage.setItem('token', token);
-        localStorage.setItem('patientData', JSON.stringify(patientData));
-
-        toast.success("Login successful!");
-        setTimeout(() => navigate("/Dash", { replace: true }), 500);
-      } else {
-        toast.error('Patient ID not found!');
-      }
+      toast.success("Login successful!");
+      setTimeout(() => navigate("/Dash", { replace: true }), 500);
     } catch (error) {
-      console.error("Error fetching patient details:", error);
-      toast.error("Failed to retrieve patient details");
+      console.error("Error signing in:", error);
+      toast.error("Failed to log in. Please check your credentials.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="container">
@@ -75,23 +49,29 @@ function Login() {
         </div>
       )}
 
-      <h2>Search Patient</h2>
+      <h2>Login</h2>
       <div className="input-wrapper">
         <input
           className="input-field"
-          placeholder="Enter Patient ID"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
-      <button onClick={fetchPatientDetails} disabled={loading}>
-        {loading ? "Loading..." : "See Details"}
-      </button>
+      <div className="input-wrapper">
+        <input
+          className="input-field"
+          type="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
-      {/* 🔙 Back to Registration Button */}
-      <button className="back-button" onClick={() => navigate("/")}>
-        Back to Registration
+      <button onClick={handleLogin} disabled={loading}>
+        {loading ? "Loading..." : "Login"}
       </button>
 
       <ToastContainer position="top-center" autoClose={3000} closeButton={false} />
