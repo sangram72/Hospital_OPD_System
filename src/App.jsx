@@ -6,7 +6,6 @@ import Prescription from "./Components/Presciption/Prescription";
 import PrescriptionHistory from "./Components/PresciptionHistory/PresciptionHistory";
 import { AuthProvider, useAuth } from "./AuthContext";
 import { useEffect, useState } from "react";
-import "./App.css"
 
 // ✅ Only allow access to protected routes if logged in
 function PrivateRoute({ element }) {
@@ -21,19 +20,77 @@ function PublicRoute({ element }) {
 }
 
 function App() {
-  const [isAllowed, setIsAllowed] = useState(false);
+  const [isAllowed, setIsAllowed] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const userAgent = navigator.userAgent.toLowerCase();
-    if (userAgent.includes("windows") || userAgent.includes("macintosh")) {
-      setIsAllowed(true);
-    }
+    let watchId;
+
+    const startTracking = () => {
+      if (!navigator.geolocation) {
+        setIsAllowed(false);
+        setErrorMessage("Geolocation is not supported in this browser.");
+        return;
+      }
+
+      watchId = navigator.geolocation.watchPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+
+          // ✅ Allowed Location (Modify these coordinates)
+          const allowedLat = 22.9266651;
+          const allowedLon = 88.4409650;
+          const radius = 0.3; // 0.3 km = 300 meters
+
+          const distance = getDistance(latitude, longitude, allowedLat, allowedLon);
+          console.log(`User distance from allowed location: ${distance.toFixed(3)} km`);
+
+          if (distance > radius) {
+            setIsAllowed(false);
+            setErrorMessage("Access is restricted to a specific location.");
+          } else {
+            setIsAllowed(true);
+            setErrorMessage(""); // Clear error message
+          }
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          setIsAllowed(false);
+          setErrorMessage("Location access error.");
+        },
+        {
+          enableHighAccuracy: true, // More precise tracking
+          maximumAge: 10000, // Cache location for 10 sec
+          timeout: 5000, // Timeout after 5 sec if no response
+        }
+      );
+    };
+
+    startTracking();
+
+    return () => {
+      if (watchId) navigator.geolocation.clearWatch(watchId);
+    };
   }, []);
+
+  // ✅ Function to Calculate Distance between Two Coordinates
+  function getDistance(lat1, lon1, lat2, lon2) {
+    const toRad = (value) => (value * Math.PI) / 180;
+    const R = 6371; // Radius of Earth in km
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
 
   if (!isAllowed) {
     return (
       <div className="block-page">
-        <h2>This application is only available on Windows and macOS.</h2>
+        <h2>{errorMessage}</h2>
       </div>
     );
   }
