@@ -34,6 +34,7 @@ export const AuthProvider = ({ children }) => {
     console.log("PatientData after logout:", localStorage.getItem("patientData")); // Should be null
   
     setIsAuthenticated(false);
+      setUser(null);
 
   };
   
