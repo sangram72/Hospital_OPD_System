@@ -24,7 +24,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    let watchId;
+    // let watchId;
 
     const checkAccess = () => {
       const userAgent = navigator.userAgent.toLowerCase();
@@ -37,13 +37,15 @@ function App() {
         return;
       }
 
-      // ✅ Screen Size Restriction (Min: 1024px)
+      // ✅ Screen Size Restriction (Min: 1440px)
       if (screenWidth < 1440) {
         setIsAllowed(false);
         setErrorMessage("This application requires a screen width of at least 1440px.");
         return;
       }
 
+      // Commenting out the location restriction
+      /*
       if (!navigator.geolocation) {
         setIsAllowed(false);
         setErrorMessage("Geolocation is not supported in this browser.");
@@ -81,6 +83,7 @@ function App() {
           timeout: 5000, // Timeout after 5 sec if no response
         }
       );
+      */
     };
 
     checkAccess();
@@ -99,11 +102,12 @@ function App() {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      if (watchId) navigator.geolocation.clearWatch(watchId);
+      // if (watchId) navigator.geolocation.clearWatch(watchId);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  /*
   // ✅ Function to Calculate Distance between Two Coordinates
   function getDistance(lat1, lon1, lat2, lon2) {
     const toRad = (value) => (value * Math.PI) / 180;
@@ -117,6 +121,7 @@ function App() {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   }
+  */
 
   if (!isAllowed) {
     return (
