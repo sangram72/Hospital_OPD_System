@@ -5,6 +5,7 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Reg.css";
+import Navbar from '../Navbar/Navbar';
 
 function Reg() {
   const [details, setDetails] = useState({
@@ -69,23 +70,22 @@ function Reg() {
   }
 
   return (
-    <div className="container">
+    <><Navbar /><div className="container">
+
       <h2>Patient Registration</h2>
       <input
         className="input-field"
         name="name"
         placeholder="Enter Your Full Name"
         value={details.name}
-        onChange={handleChange}
-      />
+        onChange={handleChange} />
       <input
         className="input-field"
         type="number"
         name="age"
         placeholder="Enter your age"
         value={details.age}
-        onChange={handleChange}
-      />
+        onChange={handleChange} />
       <div className="radio-group">
         <label>Male</label>
         <input
@@ -93,16 +93,14 @@ function Reg() {
           type="radio"
           value="Male"
           checked={details.gender === 'Male'}
-          onChange={handleChange}
-        />
+          onChange={handleChange} />
         <label>Female</label>
         <input
           name="gender"
           type="radio"
           value="Female"
           checked={details.gender === 'Female'}
-          onChange={handleChange}
-        />
+          onChange={handleChange} />
       </div>
       <input
         className="input-field"
@@ -110,9 +108,8 @@ function Reg() {
         name="phone"
         placeholder="Enter Your Phone Number"
         value={details.phone}
-        onChange={handleChange}
-      />
-      
+        onChange={handleChange} />
+
       {/* Register Button */}
       <button onClick={register}>Register</button>
 
@@ -125,10 +122,10 @@ function Reg() {
       )}
 
       {/* Login Button */}
-      <button className="login-button" onClick={() => navigate('/login')}>Go to Login</button>
+
 
       <ToastContainer position="top-center" autoClose={3000} closeButton={false} />
-    </div>
+    </div></>
   );
 }
 
