@@ -89,7 +89,7 @@ function App() {
     const handleResize = () => {
       if (window.innerWidth < 1440) {
         setIsAllowed(false);
-        setErrorMessage("Screen size too small. Resize your window to at least 1024px.");
+        setErrorMessage("Screen size too small. Resize your window to at least 1440px.");
       } else {
         setIsAllowed(true);
         setErrorMessage("");
