@@ -27,9 +27,16 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
+    localStorage.removeItem("patientData");
+  
+    console.log("Token after logout:", localStorage.getItem("token")); // Should be null
+    console.log("UserData after logout:", localStorage.getItem("userData")); // Should be null
+    console.log("PatientData after logout:", localStorage.getItem("patientData")); // Should be null
+  
     setIsAuthenticated(false);
-    setUser(null);
+
   };
+  
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
