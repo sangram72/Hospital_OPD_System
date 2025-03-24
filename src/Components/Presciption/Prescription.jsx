@@ -50,15 +50,21 @@ function Prescription() {
   useEffect(() => {
     const fetchVitals = async () => {
       if (!patientId) return;
-
+  
       try {
         const patientRef = doc(db, "patients", patientId);
         const patientSnap = await getDoc(patientRef);
-
+  
         if (patientSnap.exists()) {
           const data = patientSnap.data();
           if (data.vitals) {
-            setVitals(data.vitals);
+            setVitals({
+              height: data.vitals.height || "Not Filled",
+              weight: data.vitals.weight || "Not Filled",
+              spo2: data.vitals.spo2 || "Not Filled",
+              pulse: data.vitals.pulse || "Not Filled",
+              bp: data.vitals.bp || "Not Filled",
+            });
           } else {
             toast.warn("No vitals data available.");
           }
@@ -70,9 +76,10 @@ function Prescription() {
         toast.error("Error fetching vitals!");
       }
     };
-
+  
     fetchVitals();
   }, [patientId]);
+  
 
   // Handle input changes
   const handleChange = (e) => {
