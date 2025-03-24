@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-
+import { useAuth } from '../../AuthContext'; 
 function Navbar({ patientId }) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  console.log("Navbar got ", patientId);
-
+  const { logout } = useAuth();
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('patientData');
-    navigate("/login", { replace: true });
-  };
-
-  const handlereg =()=>{
-    localStorage.removeItem('token');
-    localStorage.removeItem('patientData');
+    logout();
     navigate("/", { replace: true });
-  }
+  };
+  
+
+
 
   return (
     <nav className="navbar">
-      <div className="logo">🏥 Sangram's Hospital</div>
+      <div className="logo">🏥 MyHospital</div>
 
       <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
         ☰
@@ -43,9 +38,9 @@ function Navbar({ patientId }) {
             Prescription
           </Link>
         </li>
-        <li><Link to="/" onClick={() => {setIsOpen(false),handlereg()}}>Register New Patient</Link></li>
+        <li><Link to="/Reg" onClick={() => {setIsOpen(false)}}>Register New Patient</Link></li>
         <li className="logout">
-          <Link to="/login" onClick={handleLogout}>Logout</Link>
+          <Link to="/" onClick={handleLogout}>Logout</Link>
         </li>
 
      
