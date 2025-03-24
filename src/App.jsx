@@ -4,7 +4,9 @@ import Login from "./Components/Login/Login";
 import Dash from "./Components/Dashboard/Dash";
 import Prescription from "./Components/Presciption/Prescription";
 import PrescriptionHistory from "./Components/PresciptionHistory/PresciptionHistory";
-import { AuthProvider, useAuth } from "./AuthContext"; 
+import { AuthProvider, useAuth } from "./AuthContext";
+import { useEffect, useState } from "react";
+import "./App.css"
 
 // ✅ Only allow access to protected routes if logged in
 function PrivateRoute({ element }) {
@@ -19,6 +21,23 @@ function PublicRoute({ element }) {
 }
 
 function App() {
+  const [isAllowed, setIsAllowed] = useState(false);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.includes("windows") || userAgent.includes("macintosh")) {
+      setIsAllowed(true);
+    }
+  }, []);
+
+  if (!isAllowed) {
+    return (
+      <div className="block-page">
+        <h2>This application is only available on Windows and macOS.</h2>
+      </div>
+    );
+  }
+
   return (
     <AuthProvider>
       <Router>
