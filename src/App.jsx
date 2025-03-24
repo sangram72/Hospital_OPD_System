@@ -44,44 +44,44 @@ function App() {
         return;
       }
 
-    //   if (!navigator.geolocation) {
-    //     setIsAllowed(false);
-    //     setErrorMessage("Geolocation is not supported in this browser.");
-    //     return;
-    //   }
+      if (!navigator.geolocation) {
+        setIsAllowed(false);
+        setErrorMessage("Geolocation is not supported in this browser.");
+        return;
+      }
 
-    //   watchId = navigator.geolocation.watchPosition(
-    //     (position) => {
-    //       const { latitude, longitude } = position.coords;
+      watchId = navigator.geolocation.watchPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
 
-    //       // ✅ Allowed Location (Modify these coordinates)
-    //       const allowedLat = 22.9266651;
-    //       const allowedLon = 88.4409650;
-    //       const radius = 0.3; // 0.3 km = 300 meters
+          // ✅ Allowed Location (Modify these coordinates)
+          const allowedLat = 22.9266651;
+          const allowedLon = 88.4409650;
+          const radius = 0.3; // 0.3 km = 300 meters
 
-    //       const distance = getDistance(latitude, longitude, allowedLat, allowedLon);
-    //       console.log(`User distance from allowed location: ${distance.toFixed(3)} km`);
+          const distance = getDistance(latitude, longitude, allowedLat, allowedLon);
+          console.log(`User distance from allowed location: ${distance.toFixed(3)} km`);
 
-    //       if (distance > radius) {
-    //         setIsAllowed(false);
-    //         setErrorMessage("Access is restricted to a specific location.");
-    //       } else {
-    //         setIsAllowed(true);
-    //         setErrorMessage(""); // Clear error message
-    //       }
-    //     },
-    //     (error) => {
-    //       console.error("Geolocation error:", error);
-    //       setIsAllowed(false);
-    //       setErrorMessage("Location access error.");
-    //     },
-    //     {
-    //       enableHighAccuracy: true, // More precise tracking
-    //       maximumAge: 10000, // Cache location for 10 sec
-    //       timeout: 5000, // Timeout after 5 sec if no response
-    //     }
-    //   );
-    // };
+          if (distance > radius) {
+            setIsAllowed(false);
+            setErrorMessage("Access is restricted to a specific location.");
+          } else {
+            setIsAllowed(true);
+            setErrorMessage(""); // Clear error message
+          }
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          setIsAllowed(false);
+          setErrorMessage("Location access error.");
+        },
+        {
+          enableHighAccuracy: true, // More precise tracking
+          maximumAge: 10000, // Cache location for 10 sec
+          timeout: 5000, // Timeout after 5 sec if no response
+        }
+      );
+    };
 
     checkAccess();
 
