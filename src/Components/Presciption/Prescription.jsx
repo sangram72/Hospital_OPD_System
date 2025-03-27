@@ -36,6 +36,7 @@ function Prescription() {
     const storedPatient = localStorage.getItem("patientData");
     if (storedPatient) {
       const parsedPatient = JSON.parse(storedPatient);
+      console.log("datatatatatata",parsedPatient)
       if (parsedPatient?.id) {
         setPatientId(parsedPatient.id);
         setPatientData({ name: parsedPatient.name, age: parsedPatient.age });
@@ -121,9 +122,9 @@ function Prescription() {
     pdf.setFont("helvetica");
 
     pdf.addImage(logo, "PNG", 80, 5, 50, 20);
-    pdf.setFontSize(14).setTextColor("#0047AB").text("XYZ Hospital", 105, 30, { align: "center" });
-    pdf.setFontSize(10).setTextColor("black").text("123 Street Name, City, Country", 105, 37, { align: "center" });
-    pdf.text("Email: contact@xyzhospital.com | Phone: +1234567890", 105, 42, { align: "center" });
+    pdf.setFontSize(14).setTextColor("#0047AB").text("Sangram's Hospital", 105, 30, { align: "center" });
+    pdf.setFontSize(10).setTextColor("black").text("Kolkata , India", 105, 37, { align: "center" });
+    pdf.text("Email: sangramnandi99@gmail.com | Phone: +919875369598", 105, 42, { align: "center" });
 
     pdf.setFontSize(12).setTextColor("#FF5733").text(`Patient Name: ${patientData.name}`, 10, 55);
     pdf.text(`Age: ${patientData.age}`, 160, 55);
