@@ -59,6 +59,43 @@ function PrescriptionHistory() {
     fetchPrescriptions();
   }, [patientId, sortOrder]);
 
+  const generatePDF = (prescription) => {
+    const pdf = new jsPDF();
+    pdf.setFont("helvetica");
+
+    pdf.addImage(logo, "PNG", 80, 5, 50, 20);
+    pdf.setFontSize(14).setTextColor("#0047AB").text("Sangram's Hospital", 105, 30, { align: "center" });
+    pdf.setFontSize(10).setTextColor("black").text("Kolkata , India", 105, 37, { align: "center" });
+    pdf.text("Email: sangramnandi99@gmail.com | Phone: +919875369598", 105, 42, { align: "center" });
+
+    pdf.setFontSize(12).setTextColor("#FF5733").text(`Patient Name: ${patientData.name}`, 10, 55);
+    pdf.text(`Age: ${patientData.age}`, 160, 55);
+    pdf.text(`Patient ID: ${patientId}`, 10, 61);
+
+    pdf.setFontSize(12).setTextColor("#009688").text("Vitals:", 10, 73);
+    pdf.setFontSize(10).setTextColor("black");
+    pdf.text(`Height: ${prescription.vitals?.height || "N/A"} cm`, 10, 80);
+    pdf.text(`Weight: ${prescription.vitals?.weight || "N/A"} kg`, 60, 80);
+    pdf.text(`SpO2: ${prescription.vitals?.spo2 || "N/A"} %`, 110, 80);
+    pdf.text(`Pulse: ${prescription.vitals?.pulse || "N/A"} bpm`, 160, 80);
+    pdf.text(`BP: ${prescription.vitals?.bp || "N/A"} mmHg`, 10, 87);
+
+    pdf.setFontSize(12).setTextColor("#E91E63").text("Findings:", 10, 100);
+    pdf.setFontSize(10).setTextColor("black").text(prescription.findings || "N/A", 10, 105, { maxWidth: 190 });
+
+    pdf.setFontSize(12).setTextColor("#3F51B5").text("Medicines:", 10, 135);
+    pdf.setFontSize(10).setTextColor("black").text(prescription.medicines || "N/A", 10, 140, { maxWidth: 190 });
+
+    pdf.setFontSize(12).setTextColor("#4CAF50").text("Reports to be Done:", 10, 170);
+    pdf.setFontSize(10).setTextColor("black").text(prescription.report || "N/A", 10, 175 , { maxWidth: 190 });
+
+    pdf.text(`Next Review Date: ${prescription.reviewDate || "N/A"}`, 10, 205);
+    pdf.setFontSize(12).setTextColor("#795548").text("Doctor's Signature:", 140, 230);
+    pdf.text(prescription.signature || "N/A", 140, 235);
+
+    pdf.save(`Prescription_${patientId}.pdf`);
+  };
+
   return (
     <>
       <Navbar />
