@@ -128,8 +128,8 @@ function Dash() {
       return;
     }
 
-
-    localStorage.setItem("patientData", JSON.stringify({ id: patient.id}));
+console.log(patient)
+    localStorage.setItem("patientData", JSON.stringify({ id: patient.id,age:patient.age,name:patient.name,gender:patient.gender,phone:patient.phone}));
   setVitals({
     height: "",
     weight: "",
