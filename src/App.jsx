@@ -23,8 +23,6 @@ function App() {
   const [isAllowed, setIsAllowed] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { isAuthenticated } = useAuth(); // Get authentication status from context
-
   useEffect(() => {
     // let watchId;
 
@@ -137,17 +135,12 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Public Route */}
           <Route path="/" element={<PublicRoute element={<Login />} />} />
-          
-          {/* Private Routes */}
           <Route path="/Reg" element={<PrivateRoute element={<Reg />} />} />
           <Route path="/Dash" element={<PrivateRoute element={<Dash />} />} />
           <Route path="/prescription" element={<PrivateRoute element={<Prescription />} />} />
           <Route path="/PrescriptionHistory" element={<PrivateRoute element={<PrescriptionHistory />} />} />
-          
-          {/* Catch-all Route with logic for redirection */}
-{/*           <Route path="/*" element={isAuthenticated ? <Navigate to="/Dash" replace /> : <Navigate to="/" replace />} /> */}
+{/*       <Route path="/*" element={isAuthenticated ? <Navigate to="/Dash" replace /> : <Navigate to="/" replace />} /> */}
         </Routes>
       </Router>
     </AuthProvider>
