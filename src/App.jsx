@@ -140,6 +140,7 @@ function App() {
           <Route path="/Dash" element={<PrivateRoute element={<Dash />} />} />
           <Route path="/prescription" element={<PrivateRoute element={<Prescription />} />} />
           <Route path="/PrescriptionHistory" element={<PrivateRoute element={<PrescriptionHistory />} />} />
+          <Route path="/*" element={<Navigate to={"/"}/>} />
         </Routes>
       </Router>
     </AuthProvider>
