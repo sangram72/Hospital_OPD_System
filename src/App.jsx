@@ -147,7 +147,7 @@ function App() {
           <Route path="/PrescriptionHistory" element={<PrivateRoute element={<PrescriptionHistory />} />} />
           
           {/* Catch-all Route with logic for redirection */}
-          <Route path="/*" element={isAuthenticated ? <Navigate to="/Dash" replace /> : <Navigate to="/" replace />} />
+{/*           <Route path="/*" element={isAuthenticated ? <Navigate to="/Dash" replace /> : <Navigate to="/" replace />} /> */}
         </Routes>
       </Router>
     </AuthProvider>
